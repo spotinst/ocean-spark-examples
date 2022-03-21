@@ -19,7 +19,7 @@ singleuser:
     -   display_name: Ocean Spark
         description: Your code will run on the Ocean Spark platform with Spark support.
         kubespawner_override:
-            oceanspark_cluster_id: osc-fbf5c7dd
+            oceanspark_cluster_id: osc-xxxxxx
 hub:
   extraConfig:
     oceanspark.py: |
