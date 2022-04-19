@@ -1,0 +1,237 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "CreateEC2Tags",
+            "Action": "ec2:CreateTags",
+            "Effect": "Allow",
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "UpdateEC2InstancesScopedByTag",
+            "Action": [
+                "ec2:StopInstances",
+                "ec2:StartInstances",
+                "ec2:TerminateInstances",
+                "ec2:DeleteTags",
+                "ec2:UnassignPrivateIpAddresses",
+                "ec2:ModifyNetworkInterfaceAttribute",
+                "ec2:ModifyImageAttribute",
+                "ec2:ModifyInstanceAttribute",
+                "ec2:AssociateAddress"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "ec2:ResourceTag/spotinst:aws:ec2:group:createdBy": "spotinst"
+                }
+            },
+            "Effect": "Allow",
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "ReadEC2Instances",
+            "Action": [
+                "ec2:CreateSpotDatafeedSubscription",
+                "ec2:Describe*",
+                "ec2:ConfirmProductInstance",
+                "ec2:MonitorInstances"
+            ],
+            "Effect": "Allow",
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "RunInstancesScopedByTag",
+            "Effect": "Allow",
+            "Action": "ec2:RunInstances",
+            "Resource": [
+                "arn:aws:ec2:{{ region }}:{{ account_id }}:instance/*"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestTag/spotinst:aws:ec2:group:createdBy": "spotinst"
+                }
+            }
+        },
+        {
+            "Sid": "RunInstances",
+            "Effect": "Allow",
+            "Action": "ec2:RunInstances",
+            "Resource": [
+                "arn:aws:ec2:{{ region }}:{{ account_id }}:key-pair/*",
+                "arn:aws:ec2:{{ region }}::image/ami-*",
+                "arn:aws:ec2:{{ region }}:{{ account_id }}:network-interface/*",
+                "arn:aws:ec2:{{ region }}:{{ account_id }}:security-group/*",
+                "arn:aws:ec2:{{ region }}:{{ account_id }}:subnet/*",
+                "arn:aws:ec2:{{ region }}:{{ account_id }}:volume/*"
+            ]
+        },
+        {
+            "Sid": "RequestSpotInstancesScopedByTag",
+            "Action": "ec2:RequestSpotInstances",
+            "Effect": "Allow",
+            "Resource": [
+                "arn:aws:ec2:{{ region }}:{{ account_id }}:spot-instances-request/*"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestTag/spotinst:aws:ec2:group:createdBy": "spotinst"
+                }
+            }
+        },
+        {
+            "Sid": "RequestSpotInstances",
+            "Action": "ec2:RequestSpotInstances",
+            "Effect": "Allow",
+            "Resource": [
+                "arn:aws:ec2:{{ region }}:{{ account_id }}:key-pair/*",
+                "arn:aws:ec2:{{ region }}::image/ami-*",
+                "arn:aws:ec2:{{ region }}:{{ account_id }}:network-interface/*",
+                "arn:aws:ec2:{{ region }}:{{ account_id }}:security-group/*",
+                "arn:aws:ec2:{{ region }}:{{ account_id }}:subnet/*"
+            ]
+        },
+        {
+            "Sid": "CancelSpotInstancesScopedByTag",
+            "Action": "ec2:CancelSpotInstanceRequests",
+            "Effect": "Allow",
+            "Resource": [
+                "*"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "ec2:ResourceTag/spotinst:aws:ec2:group:createdBy": "spotinst"
+                }
+            }
+        },
+        {
+            "Sid": "RegisterELBs",
+            "Action": [
+                "elasticloadbalancing:Describe*",
+                "elasticloadbalancing:Deregister*",
+                "elasticloadbalancing:Register*",
+                "elasticloadbalancing:RegisterTargets",
+                "elasticloadbalancing:EnableAvailabilityZonesForLoadBalancer",
+                "elasticloadbalancing:DisableAvailabilityZonesForLoadBalancer"
+            ],
+            "Effect": "Allow",
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "ReadCloudWatch",
+            "Action": [
+                "cloudwatch:DescribeAlarmHistory",
+                "cloudwatch:DescribeAlarms",
+                "cloudwatch:DescribeAlarmsForMetric",
+                "cloudwatch:GetMetricStatistics",
+                "cloudwatch:ListMetrics"
+            ],
+            "Effect": "Allow",
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "ReadIAM",
+            "Action": [
+                "iam:ListInstanceProfiles",
+                "iam:ListInstanceProfilesForRole",
+                "iam:ListRoles",
+                "iam:ListRolePolicies",
+                "iam:GetInstanceProfile",
+                "iam:GetRolePolicy"
+            ],
+            "Effect": "Allow",
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "PassRole",
+            "Action": "iam:PassRole",
+            "Effect": "Allow",
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "CreateServiceLinkedRole",
+            "Effect": "Allow",
+            "Action": "iam:CreateServiceLinkedRole",
+            "Resource": "arn:aws:iam::{{ account_id }}:role/aws-service-role/spot.amazonaws.com/AWSServiceRoleForEC2Spot",
+            "Condition": {
+                "StringLike": {
+                    "iam:AWSServiceName": "spot.amazonaws.com"
+                }
+            }
+        },
+        {
+            "Sid": "UseKMSKey",
+            "Effect": "Allow",
+            "Action": [
+                "kms:Encrypt",
+                "kms:Decrypt",
+                "kms:ReEncrypt*",
+                "kms:GenerateDataKey*",
+                "kms:DescribeKey"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "WriteCrossAccountKMS",
+            "Effect": "Allow",
+            "Action": [
+                "kms:CreateGrant",
+                "kms:ListGrants",
+                "kms:RevokeGrant"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "ReadEks",
+            "Action": "eks:ListClusters",
+            "Effect": "Allow",
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "ReadAutoScalingGroups",
+            "Action": "autoscaling:Describe*",
+            "Effect": "Allow",
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "ReadSavingsPlan",
+            "Action": [
+                "savingsplans:Describe*",
+                "savingsplans:List*"
+            ],
+            "Effect": "Allow",
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "ReadLambdaConsumptionForSP",
+            "Action": "lambda:ListFunctions",
+            "Effect": "Allow",
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}
