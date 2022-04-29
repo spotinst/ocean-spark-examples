@@ -37,9 +37,9 @@ c.OceanSparkDockerSpawner.ocean_spark_url = "https://api.spotinst.io/ocean/spark
 c.OceanSparkDockerSpawner.options_form = """
     Please enter a Ocean Spark API key: <input name="api_key" />
 """
-
-# Some general configuration for DockerSpawner
-# (a Spawner that runs Jupyter services in separate Docker containers)
+c.OceanSparkDockerSpawner.environment = {
+    "JUPYTERHUB_SINGLEUSER_APP": "notebook.notebookapp.NotebookApp"
+}
 c.DockerSpawner.image = "jupyterhub/singleuser:latest"
 c.DockerSpawner.remove_containers = True
 c.DockerSpawner.remove = True
