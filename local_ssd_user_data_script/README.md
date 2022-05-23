@@ -3,9 +3,11 @@
 This folder contains a template of a user data script to enable local SSD support for Spark on the Ocean Spark platform.
 
 ## Usage
-On Spot Ocean Cluster  
-Add the bash script on the VNGs used for spark executors.  
-Replace the value of the variable EKS_CLUSTER_NAME by the name of the cluster.
+Add this bash script as userdata script to the Virtual Node Groups (VNGs) used for Spark executors.
+In the Spot console, the user data script is configured in Ocean > Clusters > your cluster > Virtual Node Groups.
+
+Make sure to replace the value of the variable `EKS_CLUSTER_NAME` by the name of the cluster.
+This name can be found in the AWS console.
 
 
 ## Explanation
