@@ -1,6 +1,6 @@
 # User Data Startup Script for local ssd support
 
-This folder contains a template of a user data script to support local ssd on Ocean spark platform.
+This folder contains a template of a user data script to enable local SSD support for Spark on the Ocean Spark platform.
 
 ## Usage
 On Spot Ocean Cluster  
