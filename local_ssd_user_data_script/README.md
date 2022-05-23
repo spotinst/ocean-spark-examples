@@ -11,10 +11,10 @@ This name can be found in the AWS console.
 
 
 ## Explanation
-This script will create a folder "/data" for all nodes of the VNG.  
-If the node is an instance using NVME volume (SSD), it will mount this volume into the above folder "/data".  
-Otherwise, the folder will just use current volume.  
+This script will create a folder `/data` on the filesystem of all nodes in the VNG.  
+If the EC2 instance underlying the node uses NVMe volumes (like `m5d`, `r5d`, or `i3` families), the script will mount these volumes into the above folder `/data`.  
+Otherwise, the `/data` folder will just be transparently created on the instance boot disk.  
 
-Ocean Spark will mount this folder as a volume for the spark application executors.  
+Ocean Spark will mount this folder as a volume in all Spark executor pods.  
 
-Currently, it's enabled only for spark 3 and EKS.
+Currently, local SSD support is enabled for Spark 3 and AWS only.
