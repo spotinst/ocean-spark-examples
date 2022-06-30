@@ -15,11 +15,11 @@ You have 2 options to enable Ocean for Apache Spark connection with your noteboo
 ### Option 1 - Clone this repo
 
 Clone this repo :   
-`git clone https://github.com/epignot/vscode-ofas-notebook-template.git`
+`git clone https://github.com/spotinst/ocean-spark-examples.git`
 
-> Your notebook files should live in the `vscode-ofas-notebook-template` folder  
+> Your notebook files should live in the `vscode-notebook-template` folder. You can consider it standalone and copy it outside this repo if you want.
 
-Open the folder `vscode-ofas-notebook-template` with VSCode
+Open the folder `vscode-notebook-template` with VSCode
 
 Next : [Connect to Remote server](#connect-to-remote-server)
 
