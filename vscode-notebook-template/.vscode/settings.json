@@ -1,0 +1,4 @@
+{
+    "jupyter.jupyterLaunchTimeout": 600000,
+    "jupyter.disableJupyterAutoStart": true,
+}

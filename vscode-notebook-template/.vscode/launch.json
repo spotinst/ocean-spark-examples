@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "name": "Connect to remote Jupyter",
+            "request": "launch",
+            "type": "node-terminal",
+            "command": "jupyter notebook --no-browser --GatewayClient.url=https://api.spotinst.io/ocean/spark/cluster/${input:clusterId}/notebook/ --GatewayClient.auth_token=${input:token} --GatewayClient.request_timeout=600 ",
+        }
+    ],
+    "inputs": [
+        {
+            "id": "clusterId",
+            "type": "promptString",
+            "description": "OfAS Cluster Id",
+        },
+        {
+            "id": "token",
+            "type": "promptString",
+            "description": "Spot Personal Access Token",
+        }
+    ]
+}
