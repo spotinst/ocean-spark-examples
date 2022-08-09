@@ -19,7 +19,7 @@ singleuser:
     -   display_name: Ocean Spark
         description: Your code will run on the Ocean Spark platform with Spark support.
         kubespawner_override:
-            oceanspark_cluster_id: osc-xxxxxx
+            oceanspark_cluster_id: osc-fbf5c7dd
 hub:
   extraConfig:
     oceanspark.py: |
@@ -65,6 +65,7 @@ hub:
             async def load_user_options(self):
                 await super().load_user_options()
                 if "oceanspark_url" in self.user_options:
+                    headers_option = '{"Content-Type": "application/json"}'
                     self.log.info(self.user_options, "--user-options")
                     oceanspark_url = self.user_options["oceanspark_url"]
                     oceanspark_api_key = self.user_options["oceanspark_api_key"]
@@ -72,6 +73,7 @@ hub:
                         f"--gateway-url={oceanspark_url}",
                         f"--GatewayClient.auth_token={oceanspark_api_key}",
                         "--GatewayClient.request_timeout=600",
+                        f"--GatewayClient.headers={headers_option}"
                     ]
                     self.log.info("Using Ocean Spark. Args: " + " ".join(self.args))
                 else:
