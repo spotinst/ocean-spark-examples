@@ -42,7 +42,7 @@ hub:
                     datamechanics_api_key = self.user_options["oceanspark_api_key"]
                     self.args = [
                         f"--gateway-url={self.oceanspark_url}",
-                        f"--GatewayClient.auth_token={oceanspark_api_key}",
+                        f"--GatewayClient.auth_token={datamechanics_api_key}",
                         "--GatewayClient.request_timeout=600",
                     ]
                     self.log.info("Using Data Mechanics. Args: " + " ".join(self.args))
