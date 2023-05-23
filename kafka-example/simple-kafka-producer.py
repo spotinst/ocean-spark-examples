@@ -32,9 +32,6 @@ kafka_producer = create_kafka_producer(KAFKA_BOOTSTRAP_SERVERS, SECURITY_PROTOCO
 keywords_to_track = ['ChatGPT', 'Bard', 'Github Copilot']
 message = ""
 
-#for i in range(5): 
-#    kafka_producer.send(KAFKA_TOPIC, key="Test", value="Test Message")
-
 
 for i in range(1000):
     for keyword in keywords_to_track:    
